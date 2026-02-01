@@ -6,7 +6,6 @@
 <title>Valentine 💗</title>
 
 <style>
-/* 🌸 BODY + BLUSH BACKGROUND */
 body {
   margin: 0;
   height: 100vh;
@@ -15,107 +14,64 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
-
-  background: linear-gradient(
-    135deg,
-    #ffe6eb,
-    #ffd6e0,
-    #ffedf2
-  );
-  background-size: 400% 400%;
-  animation: blushFlow 12s ease infinite;
+  background: linear-gradient(120deg, #ffe0e9, #ffd6e0, #ffeef4);
+  background-size: 300% 300%;
+  animation: blushFlow 10s ease infinite;
 }
 
-/* 💌 CARD */
 .container {
+  position: relative;
   text-align: center;
   z-index: 2;
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.65);
-  border-radius: 20px;
+  padding: 30px 25px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 22px;
   backdrop-filter: blur(8px);
+  width: 85%;
+  max-width: 420px;
 }
 
-/* TEXT */
 h1 {
   font-size: 6vw;
   margin-bottom: 30px;
   color: #ff4d6d;
 }
 
-/* BUTTONS */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+}
+
 button {
-  padding: 18px 40px;
+  padding: 16px 36px;
   font-size: 5vw;
   border: none;
   border-radius: 14px;
   cursor: pointer;
-  margin: 10px;
-  min-width: 140px;
+  min-width: 120px;
 }
 
 .yes {
   background-color: #ff4d6d;
   color: white;
+  z-index: 3;
 }
 
 .no {
   background-color: #adb5bd;
   color: white;
-  position: absolute;
+  position: relative; /* IMPORTANT */
+  z-index: 4;         /* stays above card */
 }
 
-/* 💗 FLOATING HEARTS */
 .heart {
   position: absolute;
   animation: floatUp 6s linear infinite;
   opacity: 0.7;
-  pointer-events: none;
 }
 
-/* 💖 LOVE MESSAGE SCREEN */
-#loveMessage {
-  position: fixed;
-  inset: 0;
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 25px;
-  z-index: 5;
-
-  background: linear-gradient(
-    135deg,
-    #ffe6eb,
-    #ffd6e0,
-    #ffedf2
-  );
-  background-size: 400% 400%;
-  animation: blushFlow 12s ease infinite;
-}
-
-#loveMessage h1 {
-  font-size: 7vw;
-  color: #ff4d6d;
-  margin-bottom: 20px;
-}
-
-#loveMessage p {
-  font-size: 5vw;
-  line-height: 1.5;
-  color: #444;
-}
-
-/* DESKTOP */
-@media (min-width: 768px) {
-  h1 { font-size: 32px; }
-  button { font-size: 18px; padding: 14px 32px; }
-  #loveMessage h1 { font-size: 36px; }
-  #loveMessage p { font-size: 20px; }
-}
-
-/* 🎞️ ANIMATIONS */
 @keyframes floatUp {
   from { transform: translateY(0); opacity: 0.7; }
   to { transform: translateY(-100vh); opacity: 0; }
@@ -126,19 +82,51 @@ button {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
+#loveMessage {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, #ffe0e9, #ffd6e0);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 25px;
+  z-index: 10;
+}
+
+#loveMessage h1 {
+  font-size: 7vw;
+  color: #ff4d6d;
+  margin-bottom: 20px;
+}
+
+#loveMessage p {
+  font-size: 5vw;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  h1 { font-size: 32px; }
+  button { font-size: 18px; }
+  #loveMessage h1 { font-size: 36px; }
+  #loveMessage p { font-size: 20px; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- 💌 MAIN CARD -->
 <div class="container">
-  <h1>Pooja, do you love me? ❤️</h1>
-  <button class="yes" id="yesBtn">Yes</button>
-  <button class="no" id="noBtn">No</button>
+  <h1>Pooja, do you love me? 💖</h1>
+
+  <div class="buttons">
+    <button class="yes" id="yesBtn">Yes</button>
+    <button class="no" id="noBtn">No</button>
+  </div>
 </div>
 
-<!-- 💖 LOVE SCREEN -->
 <div id="loveMessage">
   <h1>💖 I love you too, Pooja 💖</h1>
   <p>
@@ -149,8 +137,7 @@ button {
   </p>
 </div>
 
-<!-- 🎵 MUSIC -->
-<audio id="bgMusic" preload="auto">
+<audio id="bgMusic">
   <source src="love.mp3" type="audio/mpeg">
 </audio>
 
@@ -159,43 +146,40 @@ const music = document.getElementById("bgMusic");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-/* 💖 YES CLICK */
 yesBtn.addEventListener("click", () => {
   music.volume = 0.3;
   music.loop = true;
-
-  music.play().catch(() => {
-    document.body.addEventListener("click", () => music.play(), { once: true });
-    document.body.addEventListener("touchstart", () => music.play(), { once: true });
-  });
-
+  music.play().catch(() => {});
   document.querySelector(".container").style.display = "none";
   document.getElementById("loveMessage").style.display = "flex";
 });
 
-/* 😏 NO RUNS AWAY */
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
-
 function moveButton() {
-  const x = Math.random() * (window.innerWidth - 140);
-  const y = Math.random() * (window.innerHeight - 80);
+  const padding = 20;
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+
+  noBtn.style.position = "fixed";
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 }
 
-/* 💗 HEARTS */
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+// Floating hearts
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerHTML = "💗";
   heart.style.left = Math.random() * 100 + "vw";
+  heart.style.bottom = "-20px";
   heart.style.fontSize = Math.random() * 20 + 14 + "px";
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 6000);
 }
 
-setInterval(createHeart, 350);
+setInterval(createHeart, 400);
 </script>
 
 </body>
