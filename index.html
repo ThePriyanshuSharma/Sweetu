@@ -19,9 +19,13 @@ body {
 
 .container {
   text-align: center;
-  padding: 20px;
   z-index: 2;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
 }
+
 
 h1 {
   font-size: 6vw;
@@ -59,6 +63,12 @@ button {
 @keyframes floatUp {
   from { transform: translateY(0); opacity: 0.7; }
   to { transform: translateY(-100vh); opacity: 0; }
+}
+
+@keyframes blushFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 #loveMessage {
@@ -163,3 +173,4 @@ setInterval(createHeart, 350);
 
 </body>
 </html>
+
