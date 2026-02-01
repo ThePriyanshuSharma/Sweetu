@@ -6,6 +6,7 @@
 <title>Valentine 💗</title>
 
 <style>
+/* 🌸 BODY + BLUSH BACKGROUND */
 body {
   margin: 0;
   height: 100vh;
@@ -14,24 +15,35 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
-  background: #fff;
+
+  background: linear-gradient(
+    135deg,
+    #ffe6eb,
+    #ffd6e0,
+    #ffedf2
+  );
+  background-size: 400% 400%;
+  animation: blushFlow 12s ease infinite;
 }
 
+/* 💌 CARD */
 .container {
   text-align: center;
   z-index: 2;
   padding: 25px;
   background: rgba(255, 255, 255, 0.65);
   border-radius: 20px;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
 }
 
-
+/* TEXT */
 h1 {
   font-size: 6vw;
   margin-bottom: 30px;
+  color: #ff4d6d;
 }
 
+/* BUTTONS */
 button {
   padding: 18px 40px;
   font-size: 5vw;
@@ -53,28 +65,18 @@ button {
   position: absolute;
 }
 
+/* 💗 FLOATING HEARTS */
 .heart {
   position: absolute;
-  color: #ff4d6d;
   animation: floatUp 6s linear infinite;
   opacity: 0.7;
+  pointer-events: none;
 }
 
-@keyframes floatUp {
-  from { transform: translateY(0); opacity: 0.7; }
-  to { transform: translateY(-100vh); opacity: 0; }
-}
-
-@keyframes blushFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
+/* 💖 LOVE MESSAGE SCREEN */
 #loveMessage {
   position: fixed;
   inset: 0;
-  background: white;
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -82,6 +84,15 @@ button {
   text-align: center;
   padding: 25px;
   z-index: 5;
+
+  background: linear-gradient(
+    135deg,
+    #ffe6eb,
+    #ffd6e0,
+    #ffedf2
+  );
+  background-size: 400% 400%;
+  animation: blushFlow 12s ease infinite;
 }
 
 #loveMessage h1 {
@@ -93,25 +104,41 @@ button {
 #loveMessage p {
   font-size: 5vw;
   line-height: 1.5;
+  color: #444;
 }
 
+/* DESKTOP */
 @media (min-width: 768px) {
   h1 { font-size: 32px; }
   button { font-size: 18px; padding: 14px 32px; }
   #loveMessage h1 { font-size: 36px; }
   #loveMessage p { font-size: 20px; }
 }
+
+/* 🎞️ ANIMATIONS */
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 0.7; }
+  to { transform: translateY(-100vh); opacity: 0; }
+}
+
+@keyframes blushFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 </style>
 </head>
 
 <body>
 
+<!-- 💌 MAIN CARD -->
 <div class="container">
-  <h1>Pooja: Do you love me? ❤️</h1>
+  <h1>Pooja, do you love me? ❤️</h1>
   <button class="yes" id="yesBtn">Yes</button>
   <button class="no" id="noBtn">No</button>
 </div>
 
+<!-- 💖 LOVE SCREEN -->
 <div id="loveMessage">
   <h1>💖 I love you too, Pooja 💖</h1>
   <p>
@@ -122,7 +149,7 @@ button {
   </p>
 </div>
 
-<!-- AUDIO -->
+<!-- 🎵 MUSIC -->
 <audio id="bgMusic" preload="auto">
   <source src="love.mp3" type="audio/mpeg">
 </audio>
@@ -132,13 +159,12 @@ const music = document.getElementById("bgMusic");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
+/* 💖 YES CLICK */
 yesBtn.addEventListener("click", () => {
-  // Required user gesture → audio unlock
   music.volume = 0.3;
   music.loop = true;
 
   music.play().catch(() => {
-    // Fallback if browser delays audio
     document.body.addEventListener("click", () => music.play(), { once: true });
     document.body.addEventListener("touchstart", () => music.play(), { once: true });
   });
@@ -147,17 +173,18 @@ yesBtn.addEventListener("click", () => {
   document.getElementById("loveMessage").style.display = "flex";
 });
 
+/* 😏 NO RUNS AWAY */
 noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", moveButton);
 
 function moveButton() {
-  const x = Math.random() * (window.innerWidth - 120);
+  const x = Math.random() * (window.innerWidth - 140);
   const y = Math.random() * (window.innerHeight - 80);
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 }
 
-// Hearts
+/* 💗 HEARTS */
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -173,4 +200,3 @@ setInterval(createHeart, 350);
 
 </body>
 </html>
-
