@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine 💗</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: white;
+    }
+
+    .container {
+      text-align: center;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 6vw;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 18px 40px;
+      font-size: 5vw;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin: 10px;
+      min-width: 140px;
+    }
+
+    .yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background-color: #adb5bd;
+      color: white;
+      position: absolute;
+    }
+
+    /* 💗 Floating hearts */
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 0.7; }
+      to { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    /* 💌 Love screen */
+    #loveMessage {
+      position: fixed;
+      inset: 0;
+      background: white;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 25px;
+      z-index: 5;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    #loveMessage h1 {
+      font-size: 7vw;
+      color: #ff4d6d;
+      margin-bottom: 20px;
+    }
+
+    #loveMessage p {
+      font-size: 5vw;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (min-width: 768px) {
+      h1 { font-size: 32px; }
+      button { font-size: 18px; padding: 14px 32px; }
+      #loveMessage h1 { font-size: 36px; }
+      #loveMessage p { font-size: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Question -->
+  <div class="container">
+    <h1>Pooja: Do you love me? ❤️</h1>
+    <button class="yes" onclick="yesClick()" ontouchstart="">Yes</button>
+    <button class="no" id="noBtn">No</button>
+  </div>
+
+  <!-- Love Message -->
+  <div id="loveMessage">
+    <h1>💖 I love you too, Pooja 💖</h1>
+    <p>
+      You make my days brighter,<br>
+      my smiles wider,<br>
+      and my heart happier.<br><br>
+      Happy Valentine’s Day ❤️
+    </p>
+  </div>
+
+  <!-- 🎵 Background Music (mobile-safe) -->
+  <audio id="bgMusic" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_7c5b9f4f6c.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function yesClick() {
+      const music = document.getElementById("bgMusic");
+
+      music.volume = 0.25;
+      music.loop = true;
+
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+
+      document.querySelector(".container").style.display = "none";
+      document.getElementById("loveMessage").style.display = "flex";
+    }
+
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("touchstart", moveButton);
+    noBtn.addEventListener("mouseover", moveButton);
+
+    function moveButton() {
+      const x = Math.random() * (window.innerWidth - 120);
+      const y = Math.random() * (window.innerHeight - 80);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💗";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 14 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 350);
+  </script>
+
+</body>
+</html>
