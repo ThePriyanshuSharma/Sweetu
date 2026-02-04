@@ -1,162 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine 💗</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine for Pooja 💗</title>
 
-<style>
-body {
-  margin: 0;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(120deg, #ffe0e9, #ffd6e0, #ffeef4);
-  background-size: 300% 300%;
-  animation: blushFlow 10s ease infinite;
-}
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #ffe0e9, #ffd6e0, #ffeef4);
+            background-size: 300% 300%;
+            animation: blushFlow 10s ease infinite;
+        }
 
-.container {
-  position: relative;
-  text-align: center;
-  z-index: 2;
-  padding: 30px 25px;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 22px;
-  backdrop-filter: blur(8px);
-  width: 85%;
-  max-width: 420px;
-}
+        .container {
+            position: relative;
+            text-align: center;
+            z-index: 10;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+            width: 85%;
+            max-width: 420px;
+        }
 
-h1 {
-  font-size: 6vw;
-  margin-bottom: 30px;
-  color: #ff4d6d;
-}
+        h1 { font-size: 28px; margin-bottom: 30px; color: #ff4d6d; }
 
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
+        .buttons { display: flex; justify-content: center; gap: 20px; }
 
-button {
-  padding: 16px 36px;
-  font-size: 5vw;
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  min-width: 120px;
-}
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
 
-.yes {
-  background-color: #ff4d6d;
-  color: white;
-}
+        .yes { background-color: #ff4d6d; color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); }
+        .no { background-color: #adb5bd; color: white; z-index: 999; }
 
-.no {
-  background-color: #adb5bd;
-  color: white;
-  z-index: 9999;
-}
+        .heart { position: fixed; animation: floatUp 6s linear infinite; opacity: 0.7; z-index: 1; }
 
-/* Hearts */
-.heart {
-  position: fixed;
-  animation: floatUp 6s linear infinite;
-  opacity: 0.7;
-  z-index: 1;
-}
+        .floating-photo {
+            position: fixed;
+            border-radius: 12px;
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: white;
+            object-fit: cover;
+            pointer-events: none;
+            z-index: 2;
+            animation: floatRandom linear infinite;
+        }
 
-/* Floating photos */
-.floating-photo {
-  position: fixed;
-  border-radius: 12px;
-  opacity: 0.85;
-  pointer-events: none;
-  z-index: 1;
-  animation: floatRandom linear infinite;
-}
+        @keyframes floatRandom {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+        }
 
-@keyframes floatRandom {
-  from {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(-120vh) rotate(360deg);
-    opacity: 0.9;
-  }
-}
+        @keyframes floatUp {
+            from { transform: translateY(100vh); opacity: 0.7; }
+            to { transform: translateY(-10vh); opacity: 0; }
+        }
 
-@keyframes floatUp {
-  from { transform: translateY(0); opacity: 0.7; }
-  to { transform: translateY(-100vh); opacity: 0; }
-}
+        @keyframes blushFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-@keyframes blushFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+        #loveMessage {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(120deg, #ffc2d1, #ffe0e9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 25px;
+            z-index: 1000; /* Higher than everything else */
+        }
 
-/* Love message */
-#loveMessage {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(120deg, #ffe0e9, #ffd6e0);
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 25px;
-  z-index: 10;
-}
-
-#loveMessage h1 {
-  font-size: 7vw;
-  color: #ff4d6d;
-}
-
-#loveMessage p {
-  font-size: 5vw;
-}
-
-@media (min-width: 768px) {
-  h1 { font-size: 32px; }
-  button { font-size: 18px; }
-  #loveMessage h1 { font-size: 36px; }
-  #loveMessage p { font-size: 20px; }
-}
-</style>
+        #loveMessage h1 { font-size: 40px; color: #ff4d6d; }
+        #loveMessage p { font-size: 22px; color: #c9184a; }
+    </style>
 </head>
-
 <body>
 
 <div class="container">
-  <h1>Pooja, do you love me? 💖</h1>
-  <div class="buttons">
-    <button class="yes" id="yesBtn">Yes</button>
-    <button class="no" id="noBtn">No</button>
-  </div>
+    <h1>Pooja, do you love me? 💖</h1>
+    <div class="buttons">
+        <button class="yes" id="yesBtn">Yes</button>
+        <button class="no" id="noBtn">No</button>
+    </div>
 </div>
 
 <div id="loveMessage">
-  <h1>💖 I love you too, Pooja 💖</h1>
-  <p>
-    You make my days brighter,<br>
-    my smiles wider,<br>
-    and my heart happier.<br><br>
-    Happy Valentine’s Day ❤️
-  </p>
+    <h1>💖 I love you too, Pooja 💖</h1>
+    <p>
+        You make my days brighter,<br>
+        my smiles wider,<br>
+        and my heart happier.<br><br>
+        <strong>Happy Valentine’s Day ❤️</strong>
+    </p>
 </div>
 
 <audio id="bgMusic">
-  <source src="love.mp3" type="audio/mpeg">
+    <source src="https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -164,68 +127,66 @@ const music = document.getElementById("bgMusic");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
-/* YES */
+/* YES ACTION */
 yesBtn.addEventListener("click", () => {
-  music.volume = 0.3;
-  music.loop = true;
-  music.play().catch(() => {});
-  document.querySelector(".container").style.display = "none";
-  document.getElementById("loveMessage").style.display = "flex";
+    music.volume = 0.5;
+    music.play().catch(e => console.log("Audio play failed:", e));
+    
+    // Hide BOTH the container AND the stray No button
+    document.querySelector(".container").style.display = "none";
+    noBtn.style.display = "none"; 
+    
+    document.getElementById("loveMessage").style.display = "flex";
 });
 
-/* NO button movement */
+/* NO BUTTON RUN AWAY */
 function moveButton() {
-  if (!noBtn.classList.contains("free")) {
-    document.body.appendChild(noBtn);
-    noBtn.classList.add("free");
-    noBtn.style.position = "fixed";
-  }
-
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
-
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top = Math.random() * maxY + "px";
+    if (noBtn.style.position !== "fixed") {
+        noBtn.style.position = "fixed";
+        document.body.appendChild(noBtn);
+    }
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
 }
-
 noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveButton(); });
 
-/* Hearts */
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "💗";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.bottom = "-20px";
-  heart.style.fontSize = Math.random() * 20 + 14 + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}
-setInterval(createHeart, 400);
+/* FLOATING HEARTS */
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = ["💗", "💖", "❤️", "💕"][Math.floor(Math.random() * 4)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 15 + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 500);
 
-/* Floating photos */
+/* FLOATING PHOTOS */
 const photos = [
-  "https://github.com/ThePriyanshuSharma/Sweetu/blob/main/IMG-20251126-WA0018.jpg",
-  "IMG-20251126-WA0022.jpg",
-  "IMG-20251126-WA0080.jpg",
-  "IMG-20251126-WA0181.jpg",
-  "IMG-20251126-WA0194.jpg"
+  "https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/IMG-20251126-WA0018.jpg",
+  "https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/IMG-20251126-WA0022.jpg",
+  "https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/IMG-20251126-WA0080.jpg",
+  "https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/IMG-20251126-WA0181.jpg",
+  "https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/IMG-20251126-WA0194.jpg"
 ];
 
 function createFloatingPhoto() {
-  const img = document.createElement("img");
-  img.src = photos[Math.floor(Math.random() * photos.length)];
-  img.className = "floating-photo";
-  img.style.left = Math.random() * 100 + "vw";
-  img.style.width = img.style.height = (40 + Math.random() * 40) + "px";
-  img.style.animationDuration = (12 + Math.random() * 10) + "s";
-  document.body.appendChild(img);
-  setTimeout(() => img.remove(), 22000);
+    const img = document.createElement("img");
+    img.src = photos[Math.floor(Math.random() * photos.length)];
+    img.className = "floating-photo";
+    const size = Math.floor(Math.random() * 40) + 80;
+    img.style.width = size + "px";
+    img.style.height = (size * 1.2) + "px";
+    img.style.left = Math.random() * 90 + "vw";
+    img.style.animationDuration = (Math.random() * 5 + 10) + "s";
+    document.body.appendChild(img);
+    setTimeout(() => img.remove(), 15000);
 }
-setInterval(createFloatingPhoto, 1200);
+setInterval(createFloatingPhoto, 2500);
 </script>
 
 </body>
 </html>
-
