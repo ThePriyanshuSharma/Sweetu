@@ -41,7 +41,6 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 20px;
-  position: relative;
 }
 
 button {
@@ -56,21 +55,41 @@ button {
 .yes {
   background-color: #ff4d6d;
   color: white;
-  z-index: 3;
 }
 
 .no {
   background-color: #adb5bd;
   color: white;
-  position: relative;
   z-index: 9999;
 }
 
-
+/* Hearts */
 .heart {
-  position: absolute;
+  position: fixed;
   animation: floatUp 6s linear infinite;
   opacity: 0.7;
+  z-index: 1;
+}
+
+/* Floating photos */
+.floating-photo {
+  position: fixed;
+  border-radius: 12px;
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
+  animation: floatRandom linear infinite;
+}
+
+@keyframes floatRandom {
+  from {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0.9;
+  }
 }
 
 @keyframes floatUp {
@@ -84,6 +103,7 @@ button {
   100% { background-position: 0% 50%; }
 }
 
+/* Love message */
 #loveMessage {
   position: fixed;
   inset: 0;
@@ -100,12 +120,10 @@ button {
 #loveMessage h1 {
   font-size: 7vw;
   color: #ff4d6d;
-  margin-bottom: 20px;
 }
 
 #loveMessage p {
   font-size: 5vw;
-  line-height: 1.6;
 }
 
 @media (min-width: 768px) {
@@ -121,7 +139,6 @@ button {
 
 <div class="container">
   <h1>Pooja, do you love me? 💖</h1>
-
   <div class="buttons">
     <button class="yes" id="yesBtn">Yes</button>
     <button class="no" id="noBtn">No</button>
@@ -147,6 +164,7 @@ const music = document.getElementById("bgMusic");
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
+/* YES */
 yesBtn.addEventListener("click", () => {
   music.volume = 0.3;
   music.loop = true;
@@ -155,29 +173,25 @@ yesBtn.addEventListener("click", () => {
   document.getElementById("loveMessage").style.display = "flex";
 });
 
+/* NO button movement */
 function moveButton() {
-  // Move button out of container once
   if (!noBtn.classList.contains("free")) {
     document.body.appendChild(noBtn);
     noBtn.classList.add("free");
     noBtn.style.position = "fixed";
   }
 
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
 
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
 }
 
 noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", moveButton);
 
-// Floating hearts
+/* Hearts */
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -188,10 +202,29 @@ function createHeart() {
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 6000);
 }
-
 setInterval(createHeart, 400);
+
+/* Floating photos */
+const photos = [
+  "IMG-20251126-WA0018.jpg",
+  "IMG-20251126-WA0022.jpg",
+  "IMG-20251126-WA0080.jpg",
+  "IMG-20251126-WA0181.jpg",
+  "IMG-20251126-WA0194.jpg"
+];
+
+function createFloatingPhoto() {
+  const img = document.createElement("img");
+  img.src = photos[Math.floor(Math.random() * photos.length)];
+  img.className = "floating-photo";
+  img.style.left = Math.random() * 100 + "vw";
+  img.style.width = img.style.height = (40 + Math.random() * 40) + "px";
+  img.style.animationDuration = (12 + Math.random() * 10) + "s";
+  document.body.appendChild(img);
+  setTimeout(() => img.remove(), 22000);
+}
+setInterval(createFloatingPhoto, 1200);
 </script>
 
 </body>
 </html>
-
