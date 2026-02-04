@@ -64,7 +64,7 @@
         }
 
         @keyframes floatRandom {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
@@ -165,6 +165,7 @@ setInterval(() => {
 }, 500);
 
 /* FLOATING PHOTOS */
+/* FLOATING PHOTOS */
 const photos = [
   "https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/IMG-20251126-WA0018.jpg",
   "https://raw.githubusercontent.com/ThePriyanshuSharma/Sweetu/main/IMG-20251126-WA0022.jpg",
@@ -181,11 +182,20 @@ function createFloatingPhoto() {
     img.style.width = size + "px";
     img.style.height = (size * 1.2) + "px";
     img.style.left = Math.random() * 90 + "vw";
-    img.style.animationDuration = (Math.random() * 5 + 10) + "s";
+    
+    // Speed up: Changed from 10-15s to 6-10s
+    img.style.animationDuration = (Math.random() * 4 + 6) + "s"; 
+    
     document.body.appendChild(img);
-    setTimeout(() => img.remove(), 15000);
+    setTimeout(() => img.remove(), 8000);
 }
-setInterval(createFloatingPhoto, 2500);
+
+// Call once immediately so they appear on load
+createFloatingPhoto(); 
+createFloatingPhoto(); 
+
+// Reduced interval from 1500ms to 800ms for more frequent photos
+setInterval(createFloatingPhoto, 800);
 </script>
 
 </body>
